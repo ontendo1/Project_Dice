@@ -13,6 +13,13 @@ public class DiceBehaviour : MonoBehaviour
     [SerializeField] bool _isArm;
     [SerializeField] bool _isLeg;
 
+    public bool IsHead { get { return _isHead; } }
+    public bool IsTrunk { get { return _isTrunk; } }
+    public bool IsArm { get { return _isArm; } }
+    public bool IsLeg { get { return _isLeg; } }
+
+
+
     [Header("Instance oluşturma")]
     Camera _cam;
     Rigidbody _rb;
@@ -37,6 +44,8 @@ public class DiceBehaviour : MonoBehaviour
     bool _isHit;
 
     bool _isThrowed;
+
+    public bool IsThrowed { get { return _isThrowed; } }
 
     void Awake()
     {
@@ -108,6 +117,7 @@ public class DiceBehaviour : MonoBehaviour
     {
         //çarpınca gelen sayıyla modify ediyoruz diğer scripti ve dondurma olayı
         //BİRBİRLERİNE ÇARPINCA TEKRAR HAREKET EDİP TEKRAR PUAN EKLİYOR DÜZELTMEK LAZIM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //issleeping ile de yapabilirim puan eklemeyi düzelir öyle ama tekrar uyandırılırsa sıkıntı oluyor onun için de += yerine = olabilir mi düşün!!!!!!!
         if (other.gameObject.CompareTag("BottomEdge"))
         {
             _isHit = true;
@@ -127,7 +137,7 @@ public class DiceBehaviour : MonoBehaviour
             }
         }
 
-        if (other.gameObject.CompareTag("DestroyerLine"))
+        else if (other.gameObject.CompareTag("DestroyerLine"))
         {
             Destroy(gameObject);
         }
@@ -144,7 +154,7 @@ public class DiceBehaviour : MonoBehaviour
         //fırlatıldı
         _isThrowed = true;
     }
-    
+
     void CalculateForce()
     {
         _distance = Vector3.Distance(_startPoint, _endPoint);

@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class OnderinScriptiGeleneKadar : MonoBehaviour
 {
-    //diğer scriptten zarlara göre health vs gibi özellikleri doldurucaz burada. Hepsi isthrowed olunca. ----------- Bitti
-    //burada modifyhealth vs yapıp ordan çağırırsam kaç tane atma olayına bakmadan bile yere çarptığında skor eklemesini sağlarım
-
-
     //kolları bacakları falan da önderin yaptığı gibi ayırmalıyım. 
 
     [Header("DiceMan'imizin özelliklerini doldurma")]

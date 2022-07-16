@@ -4,11 +4,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    List<DiceBehaviour> _dices;
+    [SerializeField] List<DiceBehaviour> _dices;
+    [SerializeField] float _delay = 2f;
 
-    void Awake()
+    int _number;
+
+    public int ThrowedDices { get; set; }
+
+    void Update()
     {
-        _dices = new List<DiceBehaviour>();
+        if (_dices[_number].IsThrowed && _number + 1 < _dices.Count)
+        {
+            _number++;
+            Invoke("ActivateGameobject", _delay);
+        }
     }
 
+    void ActivateGameobject()
+    {
+        _dices[_number].gameObject.SetActive(true);
+    }
 }
