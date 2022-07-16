@@ -5,20 +5,13 @@ using UnityEngine;
 public class DiceBehaviour : MonoBehaviour
 {
     [Header("General")]
-    [SerializeField] float _additionalForce;
+    [SerializeField] float _additionalForce = 2f;
 
-    [Header("Type Selecting")]
+    [Header("Body Type")]
     [SerializeField] bool _isHead;
     [SerializeField] bool _isTrunk;
     [SerializeField] bool _isArm;
     [SerializeField] bool _isLeg;
-
-    public bool IsHead { get { return _isHead; } }
-    public bool IsTrunk { get { return _isTrunk; } }
-    public bool IsArm { get { return _isArm; } }
-    public bool IsLeg { get { return _isLeg; } }
-
-
 
     [Header("Instance oluşturma")]
     Camera _cam;
@@ -37,14 +30,9 @@ public class DiceBehaviour : MonoBehaviour
 
     [Header("Gelen sayıyı bulma")]
     int _winnerNumber;
-    public int WinnerNumber
-    {
-        get { return _winnerNumber; }
-    }
     bool _isHit;
 
     bool _isThrowed;
-
     public bool IsThrowed { get { return _isThrowed; } }
 
     void Awake()
@@ -65,8 +53,6 @@ public class DiceBehaviour : MonoBehaviour
 
     private void Update()
     {
-        //hepsininki isthrowed ise ve birleşmeyen varsa birbirlerine yaklaşma olayı başlayabilir.
-        //ayrıca isthrowed diğer scenede de dokunulamasın diye işe yarıyor.
     }
 
     void OnMouseDown()
@@ -100,7 +86,6 @@ public class DiceBehaviour : MonoBehaviour
         _trajectory.UpdateDots(transform.position, _force);
     }
 
-
     void OnMouseUp()
     {
         if (_isThrowed)
@@ -115,10 +100,8 @@ public class DiceBehaviour : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        //çarpınca gelen sayıyla modify ediyoruz diğer scripti ve dondurma olayı
-        //BİRBİRLERİNE ÇARPINCA TEKRAR HAREKET EDİP TEKRAR PUAN EKLİYOR DÜZELTMEK LAZIM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //issleeping ile de yapabilirim puan eklemeyi düzelir öyle ama tekrar uyandırılırsa sıkıntı oluyor onun için de += yerine = olabilir mi düşün!!!!!!!
-        if (other.gameObject.CompareTag("BottomEdge"))
+        //çarpınca gelen sayıyla modify ediyoruz diğer scripti ve dondurma olayı ve tekrar saymasın diye çarpılmamış olması lazım
+        if (other.gameObject.CompareTag("BottomEdge") || other.gameObject.CompareTag("Dice") && !_isHit)
         {
             _isHit = true;
             _rb.isKinematic = true;
@@ -172,6 +155,7 @@ public class DiceBehaviour : MonoBehaviour
             {
                 if (child.position.z <= _lowestZ)
                 {
+                    //coneda z rotation kullandığım için büyüktür kullanmam lazım burada yoksa arkadakini alıyor. AMA büyüktürde de 0dan küçük olmaz yine
                     _lowestZ = child.position.z;
                     winnerNumber = _diceNumbers.IndexOf(child) + 1;
 
@@ -179,7 +163,6 @@ public class DiceBehaviour : MonoBehaviour
                     Debug.Log(name + " " + winnerNumber);
                 }
             }
-            _isHit = false;
         }
         return winnerNumber;
     }
