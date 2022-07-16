@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class DiceBehaviour : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField] float _additionalForce;
 
+    [Header("Type Selecting")]
     [SerializeField] bool _isHead;
     [SerializeField] bool _isTrunk;
     [SerializeField] bool _isArm;
     [SerializeField] bool _isLeg;
-
-    
 
     [Header("Instance oluşturma")]
     Camera _cam;
     Rigidbody _rb;
     OnderinScriptiGeleneKadar _haha;
     List<Transform> _diceNumbers;
+    Trajectory _trajectory;
 
     [Header("Zar atma")]
     Vector3 _startPoint;
@@ -43,6 +44,7 @@ public class DiceBehaviour : MonoBehaviour
         _cam = Camera.main;
         _rb = GetComponent<Rigidbody>();
         _haha = FindObjectOfType<OnderinScriptiGeleneKadar>();
+        _trajectory = FindObjectOfType<Trajectory>();
 
         //getting childs
         _diceNumbers = new List<Transform>();
@@ -69,6 +71,9 @@ public class DiceBehaviour : MonoBehaviour
         _rb.isKinematic = true;
         _gap = Input.mousePosition - _cam.WorldToScreenPoint(transform.position);
         _startPoint = _cam.ScreenToWorldPoint(Input.mousePosition - _gap);
+
+        //trajectory açıyoruz
+        _trajectory.Show();
     }
 
     void OnMouseDrag()
@@ -79,6 +84,11 @@ public class DiceBehaviour : MonoBehaviour
         }
         _endPoint = _cam.ScreenToWorldPoint(Input.mousePosition - _gap);
         Debug.DrawLine(_startPoint, _endPoint);
+
+        CalculateForce();
+
+        //trajectory update ediyoruz
+        _trajectory.UpdateDots(transform.position, _force);
     }
 
 
@@ -89,13 +99,16 @@ public class DiceBehaviour : MonoBehaviour
             return;
         }
         RollTheDice();
+
+        //trajectory kapıyoruz
+        _trajectory.Hide();
     }
 
     void OnCollisionEnter(Collision other)
     {
         //çarpınca gelen sayıyla modify ediyoruz diğer scripti ve dondurma olayı
         //BİRBİRLERİNE ÇARPINCA TEKRAR HAREKET EDİP TEKRAR PUAN EKLİYOR DÜZELTMEK LAZIM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if (other.gameObject.CompareTag("BottomEdge") || other.gameObject.CompareTag("Dice"))
+        if (other.gameObject.CompareTag("BottomEdge"))
         {
             _isHit = true;
             _rb.isKinematic = true;
@@ -114,7 +127,7 @@ public class DiceBehaviour : MonoBehaviour
             }
         }
 
-        if(other.gameObject.CompareTag("DestroyerLine"))
+        if (other.gameObject.CompareTag("DestroyerLine"))
         {
             Destroy(gameObject);
         }
@@ -125,15 +138,18 @@ public class DiceBehaviour : MonoBehaviour
         //Dondurmayı kaldırıyor, force ve torque hesaplayıp fırlatıyor.
         _rb.isKinematic = false;
 
-        _distance = Vector3.Distance(_startPoint, _endPoint);
-        _direction = (_startPoint - _endPoint).normalized;
-        Vector3 force = _distance * _direction * _additionalForce;
-
-        _rb.AddForce(force, ForceMode.Impulse);
+        _rb.AddForce(_force, ForceMode.Impulse);
         _rb.AddTorque(GetRandomRotation(), ForceMode.Impulse);
 
         //fırlatıldı
         _isThrowed = true;
+    }
+    
+    void CalculateForce()
+    {
+        _distance = Vector3.Distance(_startPoint, _endPoint);
+        _direction = (_startPoint - _endPoint).normalized;
+        _force = _distance * _direction * _additionalForce;
     }
 
     int GetWinnerNumber()
