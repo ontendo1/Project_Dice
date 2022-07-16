@@ -15,7 +15,7 @@ public class LegScr : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (Mathf.Abs(rb.velocity.x) > 0f)
+        if (Mathf.Abs(rb.velocity.x) > 1f)
         {
             anim.speed = 0.7f;
         }

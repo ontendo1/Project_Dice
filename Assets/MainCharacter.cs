@@ -5,8 +5,10 @@ using UnityEngine;
 public class MainCharacter : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] float speed;
+    [SerializeField] float speed,jumpSpeed;
     Vector2 mousePos;
+    [SerializeField] GameObject checkGroundObj;
+    [SerializeField] bool onGround;
     float screenMid;
     void Start()
     {
@@ -29,6 +31,9 @@ public class MainCharacter : MonoBehaviour
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
+        if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && onGround) {
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+        }
         mousePos = Input.mousePosition;
         if(mousePos.x > screenMid)
         {
@@ -38,5 +43,7 @@ public class MainCharacter : MonoBehaviour
         {
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
+        onGround = Physics.CheckSphere(checkGroundObj.transform.position, 0.1f, LayerMask.GetMask("Plane"));
+
     }
 }
