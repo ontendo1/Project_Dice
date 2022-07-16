@@ -11,22 +11,7 @@ public class DiceBehaviour : MonoBehaviour
     [SerializeField] bool _isArm;
     [SerializeField] bool _isLeg;
 
-    public bool IsHead
-    {
-        get { return _isHead; }
-    }
-    public bool IsTrunk
-    {
-        get { return _isTrunk; }
-    }
-    public bool IsArm
-    {
-        get { return _isArm; }
-    }
-    public bool IsLeg
-    {
-        get { return _isLeg; }
-    }
+    
 
     [Header("Instance oluşturma")]
     Camera _cam;
@@ -108,23 +93,30 @@ public class DiceBehaviour : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        //Herhangi bir yere çarpınca donduruyor ve gelen sayıyı alıyor.
+        //çarpınca gelen sayıyla modify ediyoruz diğer scripti ve dondurma olayı
+        //BİRBİRLERİNE ÇARPINCA TEKRAR HAREKET EDİP TEKRAR PUAN EKLİYOR DÜZELTMEK LAZIM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (other.gameObject.CompareTag("BottomEdge") || other.gameObject.CompareTag("Dice"))
         {
             _isHit = true;
             _rb.isKinematic = true;
-            GetWinnerNumber();
+
+            if (_isHead || _isTrunk)
+            {
+                _haha.ModifyHealth(GetWinnerNumber());
+            }
+            else if (_isArm)
+            {
+                _haha.ModifyAttack(GetWinnerNumber());
+            }
+            else if (_isLeg)
+            {
+                _haha.ModifyMoveSpeed(GetWinnerNumber());
+            }
         }
 
-        if (other.gameObject.CompareTag("BottomEdge") || other.gameObject.CompareTag("DestroyerLine"))
+        if(other.gameObject.CompareTag("DestroyerLine"))
         {
-            //Herhangi bir yere çarpınca atılmış sayılacak. isHit yoksa eğer default 1 gelcek.
-            //Dice a çarpınca atılmış sayılmayacak ki zaten tek tek attırırım gibi.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            _rb.isKinematic = true;
-            transform.parent.GetComponent<OnderinScriptiGeleneKadar>().ThrowedDices.Add(this);
-
-            Debug.Log("atıldı");
-            //aşağı çarpanı da destroylayacaktım ama bottomedgee çarpanın olmaması lazım. Ayırmalı olacak!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            Destroy(gameObject);
         }
     }
 
@@ -144,8 +136,9 @@ public class DiceBehaviour : MonoBehaviour
         _isThrowed = true;
     }
 
-    void GetWinnerNumber()
+    int GetWinnerNumber()
     {
+        int winnerNumber = 0;
         if (_isHit)
         {
             float _lowestZ = 0;
@@ -154,14 +147,15 @@ public class DiceBehaviour : MonoBehaviour
                 if (child.position.z <= _lowestZ)
                 {
                     _lowestZ = child.position.z;
-                    _winnerNumber = _diceNumbers.IndexOf(child) + 1;
+                    winnerNumber = _diceNumbers.IndexOf(child) + 1;
 
                     Debug.Log(_lowestZ);
-                    Debug.Log(name + " " + _winnerNumber);
+                    Debug.Log(name + " " + winnerNumber);
                 }
             }
             _isHit = false;
         }
+        return winnerNumber;
     }
 
     Vector3 GetRandomRotation()

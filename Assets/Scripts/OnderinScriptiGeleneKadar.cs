@@ -5,15 +5,10 @@ using UnityEngine;
 public class OnderinScriptiGeleneKadar : MonoBehaviour
 {
     //diğer scriptten zarlara göre health vs gibi özellikleri doldurucaz burada. Hepsi isthrowed olunca. ----------- Bitti
-    //kolları bacakları falan da önderin yaptığı gibi ayırmalıyım. 
+    //burada modifyhealth vs yapıp ordan çağırırsam kaç tane atma olayına bakmadan bile yere çarptığında skor eklemesini sağlarım
 
-    [Header("Tüm zarlar atıldı mı diye kontrol etme")]
-    List<DiceBehaviour> _throwedDices;
-    public List<DiceBehaviour> ThrowedDices
-    {
-        get { return _throwedDices; }
-    }
-    int _totalDiceCount;
+
+    //kolları bacakları falan da önderin yaptığı gibi ayırmalıyım. 
 
     [Header("DiceMan'imizin özelliklerini doldurma")]
     int _health = 1;
@@ -22,45 +17,30 @@ public class OnderinScriptiGeleneKadar : MonoBehaviour
 
     void Awake()
     {
-        _throwedDices = new List<DiceBehaviour>();
-
         //Diğer scene'e geçerken destroy olmamak
         DontDestroyOnLoad(gameObject);
-
-        //toplam zar sayısı almak
-        foreach (DiceBehaviour dice in GetComponentsInChildren<DiceBehaviour>())
-        {
-            _totalDiceCount++;
-        }
-        Debug.Log(_totalDiceCount);
-
     }
 
     void Update()
     {
-        if (_totalDiceCount == _throwedDices.Count)
-        {
-            foreach (DiceBehaviour dice in _throwedDices)
-            {
-                if (dice.IsHead || dice.IsTrunk)
-                {
-                    _health += dice.WinnerNumber;
-                }
-                else if (dice.IsArm)
-                {
-                    _attack += dice.WinnerNumber;
-                }
-                else if (dice.IsLeg)
-                {
-                    _moveSpeed += dice.WinnerNumber;
-                }
-            }
 
-            Debug.Log("health: " + _health);
-            Debug.Log("attack: " + _attack);
-            Debug.Log("speed: " + _moveSpeed);
+    }
 
-            _totalDiceCount = 0;
-        }
+    public void ModifyHealth(int value)
+    {
+        _health += value;
+        Debug.Log("health " + _health);
+    }
+
+    public void ModifyAttack(int value)
+    {
+        _attack += value;
+        Debug.Log("attack " + _attack);
+    }
+
+    public void ModifyMoveSpeed(int value)
+    {
+        _moveSpeed += value;
+        Debug.Log("movespeed " + _moveSpeed);
     }
 }
