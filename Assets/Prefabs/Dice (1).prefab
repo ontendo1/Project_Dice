@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 7813076152699377661}
   m_Layer: 0
   m_Name: Dice (1)
-  m_TagString: Untagged
+  m_TagString: Dice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -320,4 +320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1944a85a03e4ecd40b5fdf1a15e27934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pushForce: 2
+  _additionalForce: 2
+  _isHead: 0
+  _isTrunk: 0
+  _isArm: 0
+  _isLeg: 0
