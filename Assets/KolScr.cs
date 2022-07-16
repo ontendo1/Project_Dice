@@ -30,4 +30,8 @@ public class KolScr : MonoBehaviour
         //}
         //transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ+90f);
     }
+    public Vector3 GetMousePoint()
+    {
+        return mousePos;
+    }
 }
