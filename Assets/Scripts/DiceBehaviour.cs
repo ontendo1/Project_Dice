@@ -15,8 +15,8 @@ public class DiceBehaviour : MonoBehaviour
     [Header("Instance oluşturma")]
     Camera _cam;
     Rigidbody _rb;
-    OnderinScriptiGeleneKadar _haha;
     List<Transform> _diceNumbers;
+    GameManager _gameManager;
     Trajectory _trajectory;
 
     [Header("Zar atma")]
@@ -40,7 +40,7 @@ public class DiceBehaviour : MonoBehaviour
         //getting component etc.
         _cam = Camera.main;
         _rb = GetComponent<Rigidbody>();
-        _haha = FindObjectOfType<OnderinScriptiGeleneKadar>();
+        _gameManager = FindObjectOfType<GameManager>();
         _trajectory = FindObjectOfType<Trajectory>();
 
         //getting childs
@@ -49,10 +49,6 @@ public class DiceBehaviour : MonoBehaviour
         {
             _diceNumbers.Add(child);
         }
-    }
-
-    private void Update()
-    {
     }
 
     void OnMouseDown()
@@ -108,15 +104,15 @@ public class DiceBehaviour : MonoBehaviour
 
             if (_isHead || _isTrunk)
             {
-                _haha.ModifyHealth(GetWinnerNumber());
+                _gameManager.ModifyHealth(GetWinnerNumber());
             }
             else if (_isArm)
             {
-                _haha.ModifyAttack(GetWinnerNumber());
+                _gameManager.ModifyAttack(GetWinnerNumber());
             }
             else if (_isLeg)
             {
-                _haha.ModifyMoveSpeed(GetWinnerNumber());
+                _gameManager.ModifyMoveSpeed(GetWinnerNumber());
             }
         }
 
@@ -155,7 +151,6 @@ public class DiceBehaviour : MonoBehaviour
             {
                 if (child.position.z <= _lowestZ)
                 {
-                    //coneda z rotation kullandığım için büyüktür kullanmam lazım burada yoksa arkadakini alıyor. AMA büyüktürde de 0dan küçük olmaz yine
                     _lowestZ = child.position.z;
                     winnerNumber = _diceNumbers.IndexOf(child) + 1;
 
