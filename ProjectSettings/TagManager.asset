@@ -13,6 +13,7 @@ TagManager:
   - Arm
   - Leg
   - Body
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

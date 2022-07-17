@@ -18,9 +18,9 @@ public class MainCharacter : MonoBehaviour
     float _jumpSpeed;
 
     [Header("DiceMan'imizin özelliklerini doldurma")]
-    int _health;
-    int _attack;
-    int _moveSpeed;
+    int _health = 10;
+    int _attack = 5;
+    int _moveSpeed = 4;
 
     private void Awake()
     {
@@ -83,6 +83,12 @@ public class MainCharacter : MonoBehaviour
         onGround = Physics.CheckSphere(checkGroundObj.transform.position, 0.15f, LayerMask.GetMask("Plane"));
 
     }
+
+    public void GetHit(int value)
+    {
+        _health -= value;
+    }
+    
     void GameRestart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
