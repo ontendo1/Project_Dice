@@ -6,19 +6,30 @@ using UnityEngine.SceneManagement;
 public class MainCharacter : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] float speed,jumpSpeed, grav;
+    [SerializeField] float jumpSpeed, grav;
     Vector2 mousePos;
     [SerializeField] GameObject checkGroundObj;
     [SerializeField] bool onGround;
     [SerializeField] GameObject[] vucutParcalari;
     [SerializeField] GameObject[] vucutParcalariParentleri;
     GameManager _gameManager;
-   
     float screenMid;
+
+    [Header("DiceMan'imizin özelliklerini doldurma")]
+    int _health;
+    int _attack;
+    int _moveSpeed;
+
     private void Awake()
     {
         screenMid = Screen.width / 2;
         rb = GetComponent<Rigidbody>();
+
+        //canları geçiriyorum
+        _gameManager = FindObjectOfType<GameManager>();
+        _health = _gameManager.Heatlh;
+        _attack = _gameManager.Attack;
+        _moveSpeed = _gameManager.MoveSpeed;
     }
     void Start()
     {
@@ -31,30 +42,32 @@ public class MainCharacter : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
+            rb.velocity = new Vector2(-_moveSpeed, rb.velocity.y);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
+            rb.velocity = new Vector2(_moveSpeed, rb.velocity.y);
         }
         else
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
-        if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && onGround) {
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && onGround)
+        {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
         }
         if (!onGround)
         {
-            rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y-grav);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - grav);
 
-            
-            if(transform.position.y < -10) {
+
+            if (transform.position.y < -10)
+            {
                 GameRestart();
             }
         }
         mousePos = Input.mousePosition;
-        if(mousePos.x > screenMid)
+        if (mousePos.x > screenMid)
         {
             transform.localScale = new Vector3(1f, 1f, 1f);
         }
