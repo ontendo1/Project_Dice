@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class BulletScr : MonoBehaviour
 {
+    [SerializeField] int _damage = 10;
     ParticleSystem ps;
     [SerializeField] GameObject particleEff;
 
     void Start()
     {
         ps = GetComponent<ParticleSystem>();
-        Invoke(nameof(Destroy),7f);
+        Invoke(nameof(Destroy), 7f);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
@@ -19,6 +21,16 @@ public class BulletScr : MonoBehaviour
             Destroy();
         }
     }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.GetComponent<EnemyBehaviour>().GetHit(_damage);
+        }
+        Destroy(gameObject);
+    }
+
     void Destroy()
     {
         particleEff.SetActive(true);
