@@ -746,7 +746,7 @@ MonoBehaviour:
   - {fileID: 7813076152645445315}
   _delayForActivate: 2
   _delayForFreeze: 3
-  _delayForLoading: 2
+  _delayForLoading: 5
 --- !u!4 &1351522019
 Transform:
   m_ObjectHideFlags: 0
