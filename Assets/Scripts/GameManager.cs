@@ -23,11 +23,11 @@ public class GameManager : MonoBehaviour
 
     public int Heatlh { get { return _health; } }
     public int Attack { get { return _attack; } }
-    public int MoveSpeed {get {return _moveSpeed;}}
+    public int MoveSpeed { get { return _moveSpeed; } }
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        ManageSingleton();
     }
 
     public void ModifyHealth(int value)
@@ -124,6 +124,20 @@ public class GameManager : MonoBehaviour
         if (_throwedDices < _dices.Count)
         {
             _dices[_throwedDices].gameObject.SetActive(true);
+        }
+    }
+    
+    void ManageSingleton()
+    {
+        int instanceCount = FindObjectsOfType<GameManager>().Length;
+        if (instanceCount > 1)
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
         }
     }
 }

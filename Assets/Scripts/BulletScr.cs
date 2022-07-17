@@ -16,14 +16,6 @@ public class BulletScr : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
-        {
-            Destroy();
-        }
-    }
-
-    void OnCollisionEnter(Collision other)
-    {
         if(other.gameObject.CompareTag("Enemy"))
         {
             other.gameObject.GetComponent<EnemyBehaviour>().GetHit(_damage);
