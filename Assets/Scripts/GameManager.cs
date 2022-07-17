@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [Header("DiceMan'imizin özelliklerini doldurma")]
     int _health = 1;
     int _attack = 1;
-    int _moveSpeed = 1;
+    int _moveSpeed = 4;
 
     public int Heatlh { get { return _health; } }
     public int Attack { get { return _attack; } }
@@ -83,6 +83,8 @@ public class GameManager : MonoBehaviour
             Invoke("FreezeDices", _delayForFreeze);
             Invoke("CheckSuccesfulThrows", _delayForFreeze);
             Invoke("LoadNextScene", _delayForLoading);
+
+            _throwedDices = 100;
         }
     }
 

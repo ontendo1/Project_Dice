@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class MainCharacter : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] float jumpSpeed, grav;
+    [SerializeField] float grav;
+    [SerializeField] float _additionalJumpSpeed = 2f;
     Vector2 mousePos;
     [SerializeField] GameObject checkGroundObj;
     [SerializeField] bool onGround;
@@ -14,6 +15,7 @@ public class MainCharacter : MonoBehaviour
     [SerializeField] GameObject[] vucutParcalariParentleri;
     GameManager _gameManager;
     float screenMid;
+    float _jumpSpeed;
 
     [Header("DiceMan'imizin özelliklerini doldurma")]
     int _health;
@@ -27,14 +29,17 @@ public class MainCharacter : MonoBehaviour
 
         //canları geçiriyorum
         _gameManager = FindObjectOfType<GameManager>();
-        _health = _gameManager.Heatlh;
-        _attack = _gameManager.Attack;
-        _moveSpeed = _gameManager.MoveSpeed;
+
     }
     void Start()
     {
         vucutParcalari[1].transform.parent = vucutParcalariParentleri[1].transform;
         vucutParcalari[2].transform.parent = vucutParcalariParentleri[1].transform;
+
+        _health = _gameManager.Heatlh;
+        _attack = _gameManager.Attack;
+        _moveSpeed = _gameManager.MoveSpeed;
+        _jumpSpeed = _moveSpeed * _additionalJumpSpeed;
     }
 
     // Update is called once per frame
@@ -54,14 +59,14 @@ public class MainCharacter : MonoBehaviour
         }
         if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && onGround)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, _jumpSpeed);
         }
         if (!onGround)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - grav);
 
 
-            if (transform.position.y < -10)
+            if (transform.position.y < -30)
             {
                 GameRestart();
             }
