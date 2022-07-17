@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,6 +30,7 @@ public class DiceBehaviour : MonoBehaviour
     [Header("Gelen sayıyı bulma")]
     int _winnerNumber;
     bool _isHit;
+    public bool IsHit { get { return _isHit; } }
 
     bool _isThrowed;
     public bool IsThrowed { get { return _isThrowed; } }
