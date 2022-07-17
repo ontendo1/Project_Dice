@@ -6,6 +6,13 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - Dice
+  - DestroyerLine
+  - BottomEdge
+  - Head
+  - Arm
+  - Leg
+  - Body
   layers:
   - Default
   - TransparentFX

@@ -3,6 +3,7 @@ using UnityEngine;
 public class OnderinScriptiGeleneKadar : MonoBehaviour
 {
     //kolları bacakları falan da önderin yaptığı gibi ayırmalıyım. 
+    [SerializeField] GameObject[] _childs;
     GameManager _gameManager;
 
     [Header("DiceMan'imizin özelliklerini doldurma")]
@@ -14,10 +15,17 @@ public class OnderinScriptiGeleneKadar : MonoBehaviour
 
     void Awake()
     {
+        
         //Diğer scene'e geçerken destroy olmamak
         DontDestroyOnLoad(gameObject);
-
         _gameManager = FindObjectOfType<GameManager>();
+
+    }
+
+    void Update()
+    {
+
+        
     }
 
     public void ModifyHealth(int value)
