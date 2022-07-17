@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScr : MonoBehaviour
+public class PartScr : MonoBehaviour
 {
-    
     void Start()
     {
-        Invoke(nameof(Destroy),7f);
+        Invoke(nameof(DoDestroy), 1f);
     }
 
-    void Destroy()
+    void DoDestroy()
     {
         Destroy(gameObject);
     }
+
+
 }

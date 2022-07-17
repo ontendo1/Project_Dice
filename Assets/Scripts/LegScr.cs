@@ -9,7 +9,7 @@ public class LegScr : MonoBehaviour
     Animator anim;
     void Start()
     { 
-        anim =GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         myParent = transform.parent.parent.gameObject;
         rb = myParent.GetComponent<Rigidbody>();
     }
