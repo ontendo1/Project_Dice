@@ -6,37 +6,33 @@ using UnityEngine.SceneManagement;
 public class MainCharacter : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] float speed,jumpSpeed, grav;
+    [SerializeField] float jumpSpeed, grav;
     Vector2 mousePos;
     [SerializeField] GameObject checkGroundObj;
-    [SerializeField] GameObject diceMan; 
-    [SerializeField] GameObject headDice,legDice1,legDice2,armDice1,armDice2, trunkDice;
     [SerializeField] bool onGround;
     [SerializeField] GameObject[] vucutParcalari;
     [SerializeField] GameObject[] vucutParcalariParentleri;
-   
+    GameManager _gameManager;
     float screenMid;
+
+    [Header("DiceMan'imizin özelliklerini doldurma")]
+    int _health;
+    int _attack;
+    int _moveSpeed;
+
     private void Awake()
     {
-        diceMan = GameObject.Find("DiceMAN");
-        headDice = GameObject.Find("Head Dice");
-        armDice1 = GameObject.Find("Arm 1 Dice");
-        armDice2 = GameObject.Find("Arm 2 Dice");
-        trunkDice = GameObject.Find("Trunk Dice");
-        legDice1 = GameObject.Find("Leg 1 Dice");
-        legDice2 = GameObject.Find("Leg 2 Dice");
         screenMid = Screen.width / 2;
         rb = GetComponent<Rigidbody>();
+
+        //canları geçiriyorum
+        _gameManager = FindObjectOfType<GameManager>();
+        _health = _gameManager.Heatlh;
+        _attack = _gameManager.Attack;
+        _moveSpeed = _gameManager.MoveSpeed;
     }
     void Start()
     {
-        vucutParcalari[0].transform.localPosition = headDice.transform.localPosition;
-        vucutParcalari[1].transform.localPosition = armDice1.transform.localPosition;
-        vucutParcalari[2].transform.localPosition = armDice2.transform.localPosition;
-        vucutParcalari[3].transform.localPosition = trunkDice.transform.localPosition;
-        vucutParcalari[4].transform.localPosition = legDice1.transform.localPosition;
-        vucutParcalari[5].transform.localPosition = legDice2.transform.localPosition;
-
         vucutParcalari[1].transform.parent = vucutParcalariParentleri[1].transform;
         vucutParcalari[2].transform.parent = vucutParcalariParentleri[1].transform;
     }
@@ -46,30 +42,32 @@ public class MainCharacter : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
+            rb.velocity = new Vector2(-_moveSpeed, rb.velocity.y);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
+            rb.velocity = new Vector2(_moveSpeed, rb.velocity.y);
         }
         else
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
-        if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && onGround) {
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && onGround)
+        {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
         }
         if (!onGround)
         {
-            rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y-grav);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - grav);
 
-            
-            if(transform.position.y < -10) {
+
+            if (transform.position.y < -10)
+            {
                 GameRestart();
             }
         }
         mousePos = Input.mousePosition;
-        if(mousePos.x > screenMid)
+        if (mousePos.x > screenMid)
         {
             transform.localScale = new Vector3(1f, 1f, 1f);
         }

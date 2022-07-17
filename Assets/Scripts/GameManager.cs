@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     int _attack = 1;
     int _moveSpeed = 1;
 
+    public int Heatlh { get { return _health; } }
+    public int Attack { get { return _attack; } }
+    public int MoveSpeed {get {return _moveSpeed;}}
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -38,7 +42,7 @@ public class GameManager : MonoBehaviour
     public void ModifyAttack(int value)
     {
         ShowText(value, "Attack +++");
-        
+
         _attack += value;
         _succesfulThrowing++;
         Debug.Log("attack " + _attack);
