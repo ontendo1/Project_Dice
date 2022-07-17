@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float _delayForActivate = 2f;
     [SerializeField] float _delayForFreeze = 2f;
     [SerializeField] float _delayForLoading = 5f;
+    [SerializeField] TextMeshProUGUI _winnerNumberTMP;
+    [SerializeField] TextMeshProUGUI _attributesTMP;
 
     OnderinScriptiGeleneKadar _diceMan;
     int _throwedDices;
@@ -16,6 +19,15 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _diceMan = FindObjectOfType<OnderinScriptiGeleneKadar>();
+    }
+
+    public void ShowText(int winnerNumber, string attributeText)
+    {
+        _winnerNumberTMP.gameObject.SetActive(true);
+        _attributesTMP.gameObject.SetActive(true);
+
+        _winnerNumberTMP.text = winnerNumber.ToString();
+        _attributesTMP.text = attributeText;
     }
 
     void Update()
