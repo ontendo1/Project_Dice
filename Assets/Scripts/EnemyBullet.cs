@@ -6,14 +6,14 @@ public class EnemyBullet : MonoBehaviour
 {
     [SerializeField] int _bulletDamage = 10;
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            MainCharacter mainCharacter = other.gameObject.GetComponent<MainCharacter>();
+            MainCharacter mainCharacter = other.GetComponent<MainCharacter>();
             mainCharacter.GetHit(_bulletDamage);
+            Destroy(gameObject);
         }
 
-        Destroy(gameObject);
     }
 }

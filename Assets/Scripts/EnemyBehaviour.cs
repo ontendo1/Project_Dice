@@ -8,10 +8,11 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] GameObject _bullet;
     [SerializeField] float _bulletSpeed = 2f;
     [SerializeField] float _enemyFiringRate = 2f;
-    [SerializeField] Vector3 _gapToStartFiring;
+    [SerializeField] float _xGapToStartFiring = 15f;
 
     MainCharacter _mainCharacter;
     Vector3 _direction;
+    Vector3 _gap;
     Coroutine _firingCoroutine;
 
     void Awake()
@@ -21,27 +22,64 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        Vector3 gap = _mainCharacter.transform.position - transform.position;
-        _direction = gap.normalized;
+        if (_mainCharacter != null)
+        {
+            _gap = _mainCharacter.transform.position - transform.position;
+        }
+        _direction = _gap.normalized;
+
+        //sağına soluna geçmeyle değişen gap
+        // burası da bozuk içerdeki else if e hiç girmeyebilir.
+        if (Mathf.Sign(_gap.x) < 0)
+        {
+            if (Mathf.Sign(_xGapToStartFiring) > 0)
+            {
+                _xGapToStartFiring *= -1;
+            }
+
+            if (_gap.x > _xGapToStartFiring && _firingCoroutine == null)
+            {
+                Debug.Log("SOL ateş ediyor");
+                _firingCoroutine = StartCoroutine(FireContinuously());
+            }
+            else if (_gap.x < _xGapToStartFiring && _firingCoroutine != null)
+            {
+                Debug.Log("SOL Durduruyor");
+                StopCoroutine(_firingCoroutine);
+                _firingCoroutine = null;
+            }
+        }
+        else
+        {
+            if (Mathf.Sign(_xGapToStartFiring) < 0)
+            {
+                _xGapToStartFiring *= -1;
+            }
+
+            if (_gap.x < _xGapToStartFiring && _firingCoroutine == null)
+            {
+                Debug.Log("SAĞ ateş ediyor");
+                _firingCoroutine = StartCoroutine(FireContinuously());
+            }
+            else if (_gap.x > _xGapToStartFiring && _firingCoroutine != null)
+            {
+                Debug.Log("SAĞ durduruyor");
+                StopCoroutine(_firingCoroutine);
+                _firingCoroutine = null;
+            }
+        }
 
         //oyuncuyla arasında belli bir mesafe olduğunda ateş etmeye başlasın
         //mesafe yaklaştıysa ve coroutine null ise ateş etmeye başla else stop coroutine
-        if (gap.x < _gapToStartFiring.x && _firingCoroutine == null)
-        {
-            _firingCoroutine = StartCoroutine(FireContinuously());
-        }
-        else if (gap.x > _gapToStartFiring.x && _firingCoroutine != null)
-        {
-            StopCoroutine(_firingCoroutine);
-        }
 
+        CheckHealth();
     }
 
     IEnumerator FireContinuously()
     {
         while (true)
         {
-            GameObject clone = Instantiate(_bullet, transform.position, _bullet.transform.rotation);
+            GameObject clone = Instantiate(_bullet, transform.position, Quaternion.identity);
             clone.GetComponent<Rigidbody>().velocity = _direction * _bulletSpeed;
             Destroy(clone, 3f);
 
@@ -49,5 +87,16 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    public void GetHit(int value)
+    {
+        _enemyHealth -= value;
+    }
 
+    void CheckHealth()
+    {
+        if (_enemyHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
