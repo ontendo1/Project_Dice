@@ -56,3 +56,7 @@ MonoBehaviour:
   _delayForLoading: 5
   _winnerNumberTMP: {fileID: 0}
   _attributesTMP: {fileID: 0}
+  _defaults: {fileID: 0}
+  _health: 50
+  _attack: 5
+  _moveSpeed: 12

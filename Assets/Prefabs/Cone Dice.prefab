@@ -113,7 +113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6564425344488701310
 Transform:
   m_ObjectHideFlags: 0
@@ -229,8 +229,9 @@ MonoBehaviour:
   _additionalForce: 2
   _isHead: 0
   _isTrunk: 0
-  _isArm: 0
-  _isLeg: 1
+  _isArm: 1
+  _isLeg: 0
+  _button: {fileID: 0}
 --- !u!1 &5938086861672295887
 GameObject:
   m_ObjectHideFlags: 0

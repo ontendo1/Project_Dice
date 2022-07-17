@@ -14,10 +14,12 @@ public class EnemyBehaviour : MonoBehaviour
     Vector3 _direction;
     Vector3 _gap;
     Coroutine _firingCoroutine;
+    int _enemyHealthAtStart;
 
     void Awake()
     {
         _mainCharacter = FindObjectOfType<MainCharacter>();
+        _enemyHealthAtStart = _enemyHealth;
     }
 
     void Update()
@@ -96,6 +98,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (_enemyHealth <= 0)
         {
+            FindObjectOfType<MainCharacter>().IncreaseScore(_enemyHealthAtStart);
             Destroy(gameObject);
         }
     }

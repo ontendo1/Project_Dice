@@ -9,6 +9,7 @@ public class SilahScr : MonoBehaviour
     GameObject child;
     KolScr kolScr;
     [SerializeField] float AtisHizi, bulletSpeed;
+    [SerializeField] AudioClip _audioClip;
     bool canShot = true;
 
 
@@ -43,6 +44,8 @@ public class SilahScr : MonoBehaviour
     {
         GameObject mermi = Instantiate(bullet, child.transform.position, Quaternion.identity);
         mermi.transform.eulerAngles = transform.eulerAngles;
+
+        AudioSource.PlayClipAtPoint(_audioClip, Camera.main.transform.position);
 
         Rigidbody mermiRb = mermi.GetComponent<Rigidbody>();
         mermiRb.velocity = transform.up * bulletSpeed;

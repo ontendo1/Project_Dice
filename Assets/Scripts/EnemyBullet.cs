@@ -14,6 +14,10 @@ public class EnemyBullet : MonoBehaviour
             mainCharacter.GetHit(_bulletDamage);
             Destroy(gameObject);
         }
+        if(other.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+        }
 
     }
 }

@@ -11,15 +11,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] float _delayForLoading = 5f;
     [SerializeField] TextMeshProUGUI _winnerNumberTMP;
     [SerializeField] TextMeshProUGUI _attributesTMP;
+    [SerializeField] TextMeshProUGUI _defaults;
 
     int _throwedDices;
     bool _canLoadNextScene = true;
     int _succesfulThrowing;
 
     [Header("DiceMan'imizin özelliklerini doldurma")]
-    int _health = 1;
-    int _attack = 1;
-    int _moveSpeed = 4;
+    [SerializeField] int _health = 1;
+    [SerializeField] int _attack = 1;
+    [SerializeField] int _moveSpeed = 4;
 
     public int Heatlh { get { return _health; } }
     public int Attack { get { return _attack; } }
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     {
         ManageSingleton();
     }
-
+    
     public void ModifyHealth(int value)
     {
         ShowText(value, "Health +++");
@@ -86,6 +87,9 @@ public class GameManager : MonoBehaviour
 
             _throwedDices = 100;
         }
+
+        _defaults.text = "Health: " + _health + "\nAttack: " + _attack + "\nSpeed: " + _moveSpeed;
+
     }
 
     void CheckSuccesfulThrows()
@@ -126,7 +130,7 @@ public class GameManager : MonoBehaviour
             _dices[_throwedDices].gameObject.SetActive(true);
         }
     }
-    
+
     void ManageSingleton()
     {
         int instanceCount = FindObjectsOfType<GameManager>().Length;
@@ -139,5 +143,11 @@ public class GameManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+    }
+    
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Destroy(gameObject);
     }
 }

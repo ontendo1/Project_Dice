@@ -23,7 +23,6 @@ public class FallScr : MonoBehaviour
     public void doFall()
     {
         rb.velocity = new Vector2(0f, fallSpeed);
-        tag = null;
         gameObject.layer = LayerMask.NameToLayer("Plane");
     }
 }

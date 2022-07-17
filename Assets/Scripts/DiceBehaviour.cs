@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DiceBehaviour : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class DiceBehaviour : MonoBehaviour
     List<Transform> _diceNumbers;
     GameManager _gameManager;
     Trajectory _trajectory;
+    [SerializeField] Button _button;
+    [SerializeField] AudioClip _audioClip;
 
     [Header("Zar atma")]
     Vector3 _startPoint;
@@ -33,6 +36,8 @@ public class DiceBehaviour : MonoBehaviour
     public bool IsHit { get { return _isHit; } }
 
     bool _isThrowed;
+    private bool _isHitToTarget;
+
     public bool IsThrowed { get { return _isThrowed; } }
 
     void Awake()
@@ -92,10 +97,24 @@ public class DiceBehaviour : MonoBehaviour
 
         //trajectory kapıyoruz
         _trajectory.Hide();
+        AudioSource.PlayClipAtPoint(_audioClip, _cam.transform.position);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("SuccesfulThrow"))
+        {
+            _isHitToTarget = true;
+        }
     }
 
     void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.CompareTag("Dice") && !_isHitToTarget)
+        {
+            _button.gameObject.SetActive(true);
+        }
+
         //çarpınca gelen sayıyla modify ediyoruz diğer scripti ve dondurma olayı ve tekrar saymasın diye çarpılmamış olması lazım
         if (other.gameObject.CompareTag("BottomEdge") || other.gameObject.CompareTag("Dice") && !_isHit)
         {

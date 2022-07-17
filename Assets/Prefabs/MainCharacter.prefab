@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grav: 0.7
-  _additionalJumpSpeed: 3
+  _additionalJumpSpeed: 2
   checkGroundObj: {fileID: 6225101913384647593}
   onGround: 1
   vucutParcalari:
@@ -115,6 +115,9 @@ MonoBehaviour:
   - {fileID: 6225101914045132745}
   - {fileID: 6225101914046687961}
   - {fileID: 6225101913049155956}
+  _health: 50
+  _attack: 5
+  _moveSpeed: 15
 --- !u!136 &6225101912993789259
 CapsuleCollider:
   m_ObjectHideFlags: 0

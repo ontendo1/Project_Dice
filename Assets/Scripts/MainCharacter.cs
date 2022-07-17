@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainCharacter : MonoBehaviour
 {
     Rigidbody rb;
     [SerializeField] float grav;
-    [SerializeField] float _additionalJumpSpeed = 2f;
     Vector2 mousePos;
     [SerializeField] GameObject checkGroundObj;
     [SerializeField] bool onGround;
     [SerializeField] GameObject[] vucutParcalari;
     [SerializeField] GameObject[] vucutParcalariParentleri;
+    [SerializeField] TextMeshProUGUI _healthTMP;
+    [SerializeField] TextMeshProUGUI _canvass;
     GameManager _gameManager;
     float screenMid;
     float _jumpSpeed;
@@ -20,9 +22,18 @@ public class MainCharacter : MonoBehaviour
     [Header("DiceMan'imizin özelliklerini doldurma")]
 
     //buralarla oyna
-    [SerializeField] int _health = 100;
-    [SerializeField] int _attack = 5;
-    [SerializeField] int _moveSpeed = 4;
+    int _health;
+    int _attack;
+    int _moveSpeed;
+
+    int _score;
+
+    [SerializeField] float _gameTime = 120f;
+    
+    public void IncreaseScore(int value)
+    {
+        _score += value;
+    }
 
     private void Awake()
     {
@@ -41,10 +52,19 @@ public class MainCharacter : MonoBehaviour
         _health = _gameManager.Heatlh;
         _attack = _gameManager.Attack;
         _moveSpeed = _gameManager.MoveSpeed;
-        _jumpSpeed = _moveSpeed * _additionalJumpSpeed;
+        _jumpSpeed = _moveSpeed * 2;
     }
 
-    // Update is called once per frame
+    private void Update()
+    {
+        _gameTime -= Time.deltaTime;
+        if (_gameTime < 0)
+        {
+            _canvass.gameObject.SetActive(true);
+            _canvass.text = "Score: " + _score;
+            Destroy(gameObject, 10f);
+        }
+    }
     void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.A))
@@ -85,13 +105,14 @@ public class MainCharacter : MonoBehaviour
         onGround = Physics.CheckSphere(checkGroundObj.transform.position, 0.15f, LayerMask.GetMask("Plane"));
 
         CheckHealth();
+        _healthTMP.text = "Health: " + _health + "\nAttack: " + _attack + "\nSpeed: " + _moveSpeed + "\nTime: " + _gameTime + "\nScore: " + _score;
     }
 
     public void GetHit(int value)
     {
         _health -= value;
     }
-    
+
     void GameRestart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -99,9 +120,17 @@ public class MainCharacter : MonoBehaviour
 
     void CheckHealth()
     {
-        if(_health <= 0)
+        if (_health <= 0)
         {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             Destroy(gameObject);
         }
     }
+
+    public void ResetToMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Destroy(_gameManager.gameObject);
+    }
+
 }
