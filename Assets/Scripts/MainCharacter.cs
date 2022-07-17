@@ -20,8 +20,8 @@ public class MainCharacter : MonoBehaviour
     {
         diceMan = GameObject.Find("DiceMAN");
         headDice = GameObject.Find("Head Dice");
-        armDice1 = GameObject.Find("Arm 2 Dice");
-        armDice2 = GameObject.Find("Arm 1 Dice");
+        armDice1 = GameObject.Find("Arm 1 Dice");
+        armDice2 = GameObject.Find("Arm 2 Dice");
         trunkDice = GameObject.Find("Trunk Dice");
         legDice1 = GameObject.Find("Leg 1 Dice");
         legDice2 = GameObject.Find("Leg 2 Dice");
@@ -36,6 +36,9 @@ public class MainCharacter : MonoBehaviour
         vucutParcalari[3].transform.localPosition = trunkDice.transform.localPosition;
         vucutParcalari[4].transform.localPosition = legDice1.transform.localPosition;
         vucutParcalari[5].transform.localPosition = legDice2.transform.localPosition;
+
+        vucutParcalari[1].transform.parent = vucutParcalariParentleri[1].transform;
+        vucutParcalari[2].transform.parent = vucutParcalariParentleri[1].transform;
     }
 
     // Update is called once per frame
