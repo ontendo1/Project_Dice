@@ -6,25 +6,33 @@ public class BossColliderScr : MonoBehaviour
 {
     GameObject parent;
     Animator anim;
+    BossScr bossScr;
     void Start()
     {
+        
         parent = transform.parent.gameObject;
         anim = parent.GetComponent<Animator>();
-    }
+        anim.speed = 0;
 
-    private void OnTriggerEnter(Collider other)
+        bossScr = parent.GetComponent<BossScr>();
+    }
+    private void OnTriggerStay(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player") )
         {
-            anim.speed = 1;
+            anim.speed = 0.6f;
+            if (!IsInvoking(nameof(CheckGround))){
+                InvokeRepeating(nameof(CheckGround),0f,1f);
+            }
         }
     }
-    private void OnTriggerExit(Collider other)
+    void CheckGround()
     {
-        if (other.CompareTag("Player"))
+        if (bossScr.IsGround())
         {
             anim.speed = 0;
-
+            CancelInvoke(nameof(CheckGround));
         }
     }
+
 }
