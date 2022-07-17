@@ -4083,6 +4083,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acddbcb13760d340bc8fe5f0abbd026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyHealth: 0
+  _bullet: {fileID: 5655296951980691142, guid: 9da1c5a985ee5dd42878a97d3bd759b0, type: 3}
+  _bulletSpeed: 2
+  _enemyFiringRate: 2
+  _gapToStartFiring: {x: 15, y: 0, z: 0}
 --- !u!4 &543450653168869901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6158085676518749599, guid: cc3722b85e78cb74085d757078cb731e, type: 3}
@@ -4349,7 +4354,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4985614744495379580, guid: 5d28a73c72d7ff24a884cdc9ad2d8320, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4985614744495379580, guid: 5d28a73c72d7ff24a884cdc9ad2d8320, type: 3}
       propertyPath: m_LocalPosition.x
