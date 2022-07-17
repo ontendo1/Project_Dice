@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _winnerNumberTMP;
     [SerializeField] TextMeshProUGUI _attributesTMP;
 
-    OnderinScriptiGeleneKadar _diceMan;
     int _throwedDices;
     bool _canLoadNextScene = true;
     int _succesfulThrowing;
@@ -24,8 +23,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        _diceMan = FindObjectOfType<OnderinScriptiGeleneKadar>();
-
         DontDestroyOnLoad(gameObject);
     }
 
