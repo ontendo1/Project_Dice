@@ -12,16 +12,48 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _winnerNumberTMP;
     [SerializeField] TextMeshProUGUI _attributesTMP;
 
-    OnderinScriptiGeleneKadar _diceMan;
     int _throwedDices;
     bool _canLoadNextScene = true;
+    int _succesfulThrowing;
 
-    private void Awake()
+    [Header("DiceMan'imizin özelliklerini doldurma")]
+    int _health = 1;
+    int _attack = 1;
+    int _moveSpeed = 1;
+
+    void Awake()
     {
-        _diceMan = FindObjectOfType<OnderinScriptiGeleneKadar>();
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void ShowText(int winnerNumber, string attributeText)
+    public void ModifyHealth(int value)
+    {
+        ShowText(value, "Health +++");
+
+        _health += value;
+        _succesfulThrowing++;
+        Debug.Log("health " + _health);
+    }
+
+    public void ModifyAttack(int value)
+    {
+        ShowText(value, "Attack +++");
+        
+        _attack += value;
+        _succesfulThrowing++;
+        Debug.Log("attack " + _attack);
+    }
+
+    public void ModifyMoveSpeed(int value)
+    {
+        ShowText(value, "Move Speed +++");
+
+        _moveSpeed += value;
+        _succesfulThrowing++;
+        Debug.Log("movespeed " + _moveSpeed);
+    }
+
+    void ShowText(int winnerNumber, string attributeText)
     {
         _winnerNumberTMP.gameObject.SetActive(true);
         _attributesTMP.gameObject.SetActive(true);
@@ -52,9 +84,8 @@ public class GameManager : MonoBehaviour
 
     void CheckSuccesfulThrows()
     {
-        if (_diceMan.SuccesfulThrowing < 1 && _diceMan != null)
+        if (_succesfulThrowing < 1)
         {
-            Destroy(_diceMan.gameObject);
             _canLoadNextScene = false;
         }
     }
@@ -63,7 +94,7 @@ public class GameManager : MonoBehaviour
     {
         if (_canLoadNextScene)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else
         {
