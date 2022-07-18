@@ -22,9 +22,9 @@ TagManager:
   - Plane
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Weapon
+  - EnemyBullet
   - 
   - 
   - 

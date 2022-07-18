@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6225101912764733359}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bas
   m_TagString: Head
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6225101912993789257}
   - component: {fileID: 6225101912993789256}
   - component: {fileID: 6225101912993789259}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MainCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grav: 0.7
-  _additionalJumpSpeed: 2
   checkGroundObj: {fileID: 6225101913384647593}
   onGround: 1
   vucutParcalari:
@@ -115,9 +114,9 @@ MonoBehaviour:
   - {fileID: 6225101914045132745}
   - {fileID: 6225101914046687961}
   - {fileID: 6225101913049155956}
-  _health: 50
-  _attack: 5
-  _moveSpeed: 15
+  _healthTMP: {fileID: 0}
+  _canvass: {fileID: 0}
+  _gameTime: 120
 --- !u!136 &6225101912993789259
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -141,7 +140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6225101913049155959}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ayak
   m_TagString: Untagged
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -174,7 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6225101913384647592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CheckCollisions
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -206,7 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6225101914045132744}
   - component: {fileID: 6225101914045132747}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Kol
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -251,7 +250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6225101914046687960}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Govde
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,6 +340,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Leg2
       objectReference: {fileID: 0}
+    - target: {fileID: 6790930052602294053, guid: cc3722b85e78cb74085d757078cb731e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc3722b85e78cb74085d757078cb731e, type: 3}
 --- !u!4 &5903858781179352316 stripped
@@ -420,6 +423,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Leg1
       objectReference: {fileID: 0}
+    - target: {fileID: 7935314059573300452, guid: 81c7bd05f7026a14bbe824d406c0bd2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81c7bd05f7026a14bbe824d406c0bd2f, type: 3}
 --- !u!4 &5903858781479605447 stripped
@@ -439,9 +446,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6225101914045132744}
     m_Modifications:
+    - target: {fileID: 841130476301987559, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2452135837958080558, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
       propertyPath: m_Name
       value: Hand2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452135837958080558, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2975872346546459284, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
       propertyPath: m_RootOrder
@@ -499,6 +514,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 3370615965489245915, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
+      propertyPath: _audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 471c57e32af96ad4f9e131734295ef09, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
 --- !u!1 &8386755530554020949 stripped
@@ -521,6 +540,10 @@ PrefabInstance:
     - target: {fileID: 209140361431161079, guid: 775349f374e738e44b39af4eaec65e86, type: 3}
       propertyPath: m_Name
       value: Head
+      objectReference: {fileID: 0}
+    - target: {fileID: 209140361431161079, guid: 775349f374e738e44b39af4eaec65e86, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 697165827840754253, guid: 775349f374e738e44b39af4eaec65e86, type: 3}
       propertyPath: m_RootOrder
@@ -578,6 +601,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 114.035
       objectReference: {fileID: 0}
+    - target: {fileID: 2543762313671969043, guid: 775349f374e738e44b39af4eaec65e86, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355304039277937800, guid: 775349f374e738e44b39af4eaec65e86, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4429156049089358321, guid: 775349f374e738e44b39af4eaec65e86, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993862992779738788, guid: 775349f374e738e44b39af4eaec65e86, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 775349f374e738e44b39af4eaec65e86, type: 3}
 --- !u!4 &5903858781837440346 stripped
@@ -597,9 +636,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6225101914045132744}
     m_Modifications:
+    - target: {fileID: 841130476301987559, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2452135837958080558, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
       propertyPath: m_Name
       value: Hand1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452135837958080558, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2975872346546459284, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
       propertyPath: m_RootOrder
@@ -657,6 +704,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 3370615965489245915, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
+      propertyPath: _audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 471c57e32af96ad4f9e131734295ef09, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cb5be490dc093a48bf61bdf0341a72c, type: 3}
 --- !u!4 &5903858781964718044 stripped
@@ -679,6 +730,10 @@ PrefabInstance:
     - target: {fileID: 2770182533365892713, guid: b5ed559ecf191154ab256d541caac212, type: 3}
       propertyPath: m_Name
       value: Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 2770182533365892713, guid: b5ed559ecf191154ab256d541caac212, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3259052498055617747, guid: b5ed559ecf191154ab256d541caac212, type: 3}
       propertyPath: m_RootOrder
