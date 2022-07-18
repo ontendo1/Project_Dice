@@ -1812,6 +1812,14 @@ PrefabInstance:
       value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 6670745220227433238, guid: e4a33280c2e823b4dbe969e5d5cf4186, type: 3}
+      propertyPath: _isArm
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670745220227433238, guid: e4a33280c2e823b4dbe969e5d5cf4186, type: 3}
+      propertyPath: _isLeg
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670745220227433238, guid: e4a33280c2e823b4dbe969e5d5cf4186, type: 3}
       propertyPath: _button
       value: 
       objectReference: {fileID: 1590536166}
@@ -2799,6 +2807,14 @@ PrefabInstance:
     - target: {fileID: 6564425344488701310, guid: e4a33280c2e823b4dbe969e5d5cf4186, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670745220227433238, guid: e4a33280c2e823b4dbe969e5d5cf4186, type: 3}
+      propertyPath: _isArm
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670745220227433238, guid: e4a33280c2e823b4dbe969e5d5cf4186, type: 3}
+      propertyPath: _isLeg
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6670745220227433238, guid: e4a33280c2e823b4dbe969e5d5cf4186, type: 3}
       propertyPath: _button

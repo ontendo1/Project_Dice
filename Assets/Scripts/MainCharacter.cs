@@ -29,7 +29,7 @@ public class MainCharacter : MonoBehaviour
     int _score;
 
     [SerializeField] float _gameTime = 120f;
-    
+
     public void IncreaseScore(int value)
     {
         _score += value;
@@ -62,7 +62,6 @@ public class MainCharacter : MonoBehaviour
         {
             _canvass.gameObject.SetActive(true);
             _canvass.text = "Score: " + _score;
-            Destroy(gameObject, 10f);
         }
     }
     void FixedUpdate()
@@ -122,15 +121,16 @@ public class MainCharacter : MonoBehaviour
     {
         if (_health <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-            Destroy(gameObject);
+            _canvass.gameObject.SetActive(true);
+            _canvass.text = "Score: " + _score;
         }
     }
 
     public void ResetToMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Destroy(gameObject, 5f);
         Destroy(_gameManager.gameObject);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
 }
