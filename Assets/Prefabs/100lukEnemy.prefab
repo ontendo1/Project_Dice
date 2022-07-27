@@ -497,7 +497,7 @@ MonoBehaviour:
   _bullet: {fileID: 5655296951980691142, guid: 9da1c5a985ee5dd42878a97d3bd759b0, type: 3}
   _bulletSpeed: 15
   _enemyFiringRate: 2
-  _xGapToStartFiring: 15
+  _xGapToStartFiring: 20
 --- !u!65 &543450652537050667
 BoxCollider:
   m_ObjectHideFlags: 0

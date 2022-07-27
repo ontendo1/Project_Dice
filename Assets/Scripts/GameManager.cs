@@ -26,11 +26,15 @@ public class GameManager : MonoBehaviour
     public int Attack { get { return _attack; } }
     public int MoveSpeed { get { return _moveSpeed; } }
 
+    int _score;
+
+    public int Score { get { return _score; } }
+
     void Awake()
     {
         ManageSingleton();
     }
-    
+
     public void ModifyHealth(int value)
     {
         ShowText(value, "Health +++");
@@ -56,6 +60,11 @@ public class GameManager : MonoBehaviour
         _moveSpeed += value;
         _succesfulThrowing++;
         Debug.Log("movespeed " + _moveSpeed);
+    }
+
+    public void IncreaseScore(int value)
+    {
+        _score += value;
     }
 
     void ShowText(int winnerNumber, string attributeText)
@@ -90,13 +99,19 @@ public class GameManager : MonoBehaviour
 
         _defaults.text = "Health: " + _health + "\nAttack: " + _attack + "\nSpeed: " + _moveSpeed;
 
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
     }
 
+    //değiştirmeye üşendim bi işe yaramıyor şu an. normalde hiç atamazsa baştan başlatacaktım.
     void CheckSuccesfulThrows()
     {
         if (_succesfulThrowing < 1)
         {
-            _canLoadNextScene = false;
+            _canLoadNextScene = true;
         }
     }
 
@@ -144,7 +159,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-    
+
     public void ResetGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

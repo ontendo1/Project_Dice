@@ -81,7 +81,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         while (true)
         {
-            GameObject clone = Instantiate(_bullet, transform.position, Quaternion.identity);
+            GameObject clone = Instantiate(_bullet, transform.position, _bullet.transform.rotation);
             clone.GetComponent<Rigidbody>().velocity = _direction * _bulletSpeed;
             Destroy(clone, 3f);
 
@@ -98,7 +98,12 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (_enemyHealth <= 0)
         {
-            FindObjectOfType<MainCharacter>().IncreaseScore(_enemyHealthAtStart);
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            if (gameManager == null)
+                return;
+
+            gameManager.IncreaseScore(_enemyHealthAtStart);
+
             Destroy(gameObject);
         }
     }

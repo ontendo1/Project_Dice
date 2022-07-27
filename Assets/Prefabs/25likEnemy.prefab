@@ -308,7 +308,7 @@ MonoBehaviour:
   _bullet: {fileID: 5826990704509853891, guid: 7f94c48af8db5a04b8f4195a9d6e057e, type: 3}
   _bulletSpeed: 15
   _enemyFiringRate: 2
-  _xGapToStartFiring: 15
+  _xGapToStartFiring: 20
 --- !u!1 &6157937641950002058
 GameObject:
   m_ObjectHideFlags: 0

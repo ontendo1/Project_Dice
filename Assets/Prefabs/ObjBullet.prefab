@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2643196431618595293}
   - component: {fileID: 2746685937274412234}
   - component: {fileID: 7992930136498029579}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ObjBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,6 +185,10 @@ PrefabInstance:
     - target: {fileID: 3091944322194570344, guid: 81d06702541a37c4bafb03c4307931d0, type: 3}
       propertyPath: m_Name
       value: TriangleParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3091944322194570344, guid: 81d06702541a37c4bafb03c4307931d0, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3091944322194570344, guid: 81d06702541a37c4bafb03c4307931d0, type: 3}
       propertyPath: m_IsActive

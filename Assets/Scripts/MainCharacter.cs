@@ -30,10 +30,7 @@ public class MainCharacter : MonoBehaviour
 
     [SerializeField] float _gameTime = 120f;
 
-    public void IncreaseScore(int value)
-    {
-        _score += value;
-    }
+
 
     private void Awake()
     {
@@ -57,13 +54,24 @@ public class MainCharacter : MonoBehaviour
 
     private void Update()
     {
+        CheckGameTime();
+
+        if (_gameManager == null)
+            return;
+        _score = _gameManager.Score;
+    }
+
+    void CheckGameTime()
+    {
         _gameTime -= Time.deltaTime;
         if (_gameTime < 0)
         {
             _canvass.gameObject.SetActive(true);
             _canvass.text = "Score: " + _score;
+            Destroy(_gameManager.gameObject);
         }
     }
+
     void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.A))
@@ -123,13 +131,15 @@ public class MainCharacter : MonoBehaviour
         {
             _canvass.gameObject.SetActive(true);
             _canvass.text = "Score: " + _score;
+            
+            if (_gameManager == null)
+                return;
+            Destroy(_gameManager.gameObject);
         }
     }
 
     public void ResetToMenu()
     {
-        Destroy(gameObject, 5f);
-        Destroy(_gameManager.gameObject);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
